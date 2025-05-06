@@ -98,12 +98,13 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
+import getValidProfilePhoto from '../utils/getValidProfilePhoto'
 
 const menuOpen = ref(false)
 const dropdownOpen = ref(false)
 
 const username = ref(localStorage.getItem('username') || null)
-const foto = ref(localStorage.getItem('foto') || 'https://cdn-icons-png.flaticon.com/512/149/149071.png')
+const foto = ref(getValidProfilePhoto())
 
 const router = useRouter()
 
@@ -132,7 +133,7 @@ const logout = () => {
 // 🔥 Atualiza username e foto se o storage mudar
 const updateProfileInfo = () => {
   username.value = localStorage.getItem('username')
-  foto.value = localStorage.getItem('foto') || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+  foto.value = getValidProfilePhoto()
 }
 
 onMounted(() => {
