@@ -4,26 +4,21 @@
       <h2 class="text-2xl font-bold text-center mb-6 text-blue-700">Entrar</h2>
 
       <form @submit.prevent="handleLogin" class="space-y-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700">E-mail</label>
-          <input
-            v-model="email"
-            type="email"
-            required
-            autocomplete="username"
-            class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Senha</label>
-          <input
-            v-model="password"
-            type="password"
-            required
-            autocomplete="current-password"
-            class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
+        <Input
+          label="E-mail"
+          v-model="email"
+          type="email"
+          required
+          autocomplete="username"
+        />
+        <Input
+          label="Senha"
+          v-model="password"
+          type="password"
+          required
+          autocomplete="current-password"
+        />
+
         <div>
           <button
             type="submit"
@@ -41,6 +36,7 @@
 <script setup>
 import { ref } from 'vue'
 import { apiPublic, apiPrivate } from '../services/api'
+import Input from '../components/UI/Input.vue'
 
 const email = ref('')
 const password = ref('')

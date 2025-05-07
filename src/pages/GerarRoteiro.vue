@@ -17,27 +17,26 @@
         </div>
 
 
-        <div>
-          <label class="block text-gray-700 font-medium mb-2">Cidade de Visita</label>
-          <input
-            v-model="cidade"
-            type="text"
-            required
-            placeholder="Ex: Viçosa do Ceará ou Tianguá e Ubajara"
-            class="w-full rounded border border-gray-300 p-2 focus:ring-blue-500 focus:border-blue-500"
-          />
+        <Input
+          label="Cidade de Visita"
+          v-model="cidade"
+          type="text"
+          required
+          placeholder="Ex: Viçosa do Ceará ou Tianguá e Ubajara"
+        />
+        <Input 
+          label="Dias de Viagem"
+          v-model.number="dias" 
+          type="number" min="1" 
+          required 
+        />
 
-        </div>
-
-        <div>
-          <label class="block text-gray-700 font-medium mb-2">Dias de Viagem</label>
-          <input v-model.number="dias" type="number" min="1" required class="w-full rounded border border-gray-300 p-2 focus:ring-blue-500 focus:border-blue-500" />
-        </div>
-
-        <div>
-          <label class="block text-gray-700 font-medium mb-2">Interesses</label>
-          <input v-model="interesses" type="text" placeholder="Ex: natureza, cultura, aventura" class="w-full rounded border border-gray-300 p-2 focus:ring-blue-500 focus:border-blue-500" />
-        </div>
+        <Input 
+          label="Interesses"
+          v-model="interesses" 
+          type="text" 
+          placeholder="Ex: natureza, cultura, aventura" 
+        />
 
         <div class="flex items-center space-x-3">
           <input v-model="comCriancas" type="checkbox" id="criancas" class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
@@ -136,6 +135,7 @@ import html2pdf from 'html2pdf.js'
 import bgForm from '../assets/fundo-formulario.png' // caminho correto
 import { onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
+import Input from '../components/UI/Input.vue'
 
 const cidade = ref('')
 const dias = ref(1)
