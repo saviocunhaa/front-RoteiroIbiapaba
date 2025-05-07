@@ -15,6 +15,11 @@ const routes = [
     component: () => import('../pages/GerarRoteiro.vue'),
     meta: { requiresAuth: true } // 👈 Adicionamos esta linha
   },
+  {
+    path: '/register',
+    component: () => import('../pages/Register.vue')
+  },
+  
 ]
 
 const router = createRouter({

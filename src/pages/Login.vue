@@ -31,7 +31,15 @@
           >
             Entrar
           </button>
+
+          <p class="text-sm text-center text-gray-600 mt-4">
+            Não tem uma conta?
+            <router-link to="/register" class="text-blue-600 hover:underline font-medium">Cadastre-se</router-link>
+          </p>
+          
         </div>
+
+
         <p v-if="error" class="text-red-500 text-sm text-center">{{ error }}</p>
       </form>
     </div>
