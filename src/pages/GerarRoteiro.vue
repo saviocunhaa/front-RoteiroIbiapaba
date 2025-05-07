@@ -15,51 +15,38 @@
             <li><strong>Cidade de Hospedagem</strong>: selecione onde vai dormir (opcional, pode ser diferente da cidade de visita).</li>
           </ul>
         </div>
+        <Input
+          label="Cidade de Visita"
+          v-model="cidade"
+          type="text"
+          required
+          placeholder="Ex: Viçosa do Ceará ou Tianguá e Ubajara"
+        />
+        <Input 
+          label="Dias de Viagem"
+          v-model.number="dias" 
+          type="number" min="1" 
+          required 
+        />
 
-
-        <div>
-          <label class="block text-gray-700 font-medium mb-2">Cidade de Visita</label>
-          <input
-            v-model="cidade"
-            type="text"
-            required
-            placeholder="Ex: Viçosa do Ceará ou Tianguá e Ubajara"
-            class="w-full rounded border border-gray-300 p-2 focus:ring-blue-500 focus:border-blue-500"
-          />
-
-        </div>
-
-        <div>
-          <label class="block text-gray-700 font-medium mb-2">Dias de Viagem</label>
-          <input v-model.number="dias" type="number" min="1" required class="w-full rounded border border-gray-300 p-2 focus:ring-blue-500 focus:border-blue-500" />
-        </div>
-
-        <div>
-          <label class="block text-gray-700 font-medium mb-2">Interesses</label>
-          <input v-model="interesses" type="text" placeholder="Ex: natureza, cultura, aventura" class="w-full rounded border border-gray-300 p-2 focus:ring-blue-500 focus:border-blue-500" />
-        </div>
+        <Input 
+          label="Interesses"
+          v-model="interesses" 
+          type="text" 
+          placeholder="Ex: natureza, cultura, aventura" 
+        />
 
         <div class="flex items-center space-x-3">
           <input v-model="comCriancas" type="checkbox" id="criancas" class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
           <label for="criancas" class="text-gray-700">Com crianças?</label>
         </div>
 
-        <div>
-          <label class="block text-gray-700 font-medium mb-2">Cidade de Hospedagem</label>
-          <select v-model="hospedagem" class="w-full rounded border-gray-300 p-2 focus:ring-blue-500 focus:border-blue-500">
-            <option value="">Selecione uma cidade (opcional)</option>
-            <option value="Carnaubal">Carnaubal</option>
-            <option value="Croatá">Croatá</option>
-            <option value="Guaraciaba do Norte">Guaraciaba do Norte</option>
-            <option value="Ibiapina">Ibiapina</option>
-            <option value="Ipu">Ipu</option>
-            <option value="São Benedito">São Benedito</option>
-            <option value="Tianguá">Tianguá</option>
-            <option value="Ubajara">Ubajara</option>
-            <option value="Viçosa do Ceará">Viçosa do Ceará</option>
-            <option value="Serra">Outra</option>
-          </select>
-        </div>
+        <Select 
+          v-model="hospedagem" 
+          :options="cityList" l
+          label="Cidade de Hospedagem" 
+          placeholder="Selecione uma cidade (opcional)" 
+        />
 
         <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded font-semibold transition">
           Gerar Roteiro
@@ -136,6 +123,8 @@ import html2pdf from 'html2pdf.js'
 import bgForm from '../assets/fundo-formulario.png' // caminho correto
 import { onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
+import Input from '../components/UI/Input.vue'
+import Select from '../components/UI/Select.vue'
 
 const cidade = ref('')
 const dias = ref(1)
@@ -146,6 +135,19 @@ const error = ref('')
 const roteiro = ref('')
 const loading = ref(false)
 const router = useRouter()
+
+const cityList = [
+  "Carnaubal",
+  "Croatá",
+  "Guaraciaba do Norte",
+  "Ibiapina",
+  "Ipu",
+  "São Benedito",
+  "Tianguá",
+  "Ubajara",
+  "Viçosa do Ceará",
+  "Serra"
+];
 
 onBeforeMount(() => {
   const token = localStorage.getItem('access')
