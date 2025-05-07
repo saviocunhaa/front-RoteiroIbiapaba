@@ -22,7 +22,6 @@
                 alt="icone"
             />
         </button>
-
     </div>
 </template>
 
@@ -41,12 +40,11 @@ import iconClosedEye from '../../assets/icon_closed_eye.svg'
         }, 
         required: Boolean, 
         placeholder: String,
-
     })
 
     const inputModel = defineModel()
 
-    const inputType= ref()
+    const inputType= ref(props.type)
 
     watch([props.type], () => {
         inputType.value = props.type
