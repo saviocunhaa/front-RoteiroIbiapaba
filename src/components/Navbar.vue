@@ -65,10 +65,12 @@
       </div>
     </div>
 
-    <!-- Menu mobile -->
+        <!-- Menu mobile -->
     <div v-if="menuOpen" class="md:hidden mt-4 flex flex-col space-y-2">
       <router-link to="/" class="text-gray-700 hover:text-blue-600 font-medium border-b pb-2" @click="menuOpen = false">Início</router-link>
       <router-link to="/#spots" class="text-gray-700 hover:text-blue-600 font-medium border-b pb-2" @click="menuOpen = false">Destinos</router-link>
+      <router-link to="/explorar" class="text-gray-700 hover:text-blue-600 font-medium border-b pb-2" @click="menuOpen = false">Explorar</router-link>
+      
       <button
         @click="() => { handleRoteiro(); menuOpen = false }"
         class="bg-black text-white rounded-full px-6 py-2 text-sm font-semibold shadow hover:bg-gray-800 transition border-b pb-2"
