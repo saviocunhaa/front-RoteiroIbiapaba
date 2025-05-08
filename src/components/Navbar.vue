@@ -5,7 +5,7 @@
       <img
         src="../assets/RoteiroIbiapaba.png"
         alt="Logo"
-        class="h-12 w-auto"
+        class="h-20 w-auto"
       />
 
       <!-- Botão sanduíche no mobile -->
