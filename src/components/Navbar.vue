@@ -26,7 +26,7 @@
       <!-- Menu desktop -->
       <div class="hidden md:flex space-x-6 items-center">
         <router-link to="/" class="text-gray-700 hover:text-blue-600 font-medium">Início</router-link>
-        <router-link to="/#spots" class="text-gray-700 hover:text-blue-600 font-medium">Destinos</router-link>
+        <router-link to="/explorar" class="text-gray-700 hover:text-blue-600 font-medium">Explorar</router-link>
         <button
           @click="handleRoteiro"
           class="bg-black text-white rounded-full px-6 py-2 text-sm font-semibold shadow hover:bg-gray-800 transition border-2 border-white"
