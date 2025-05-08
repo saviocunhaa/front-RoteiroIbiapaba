@@ -5,10 +5,11 @@
   
         <div class="flex flex-col items-center space-y-4">
           <img
-            src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+            :src="foto"
             alt="Avatar"
-            class="w-24 h-24 rounded-full bg-gray-300"
+            class="w-24 h-24 rounded-full bg-gray-300 object-cover"
           />
+
           <p class="text-lg text-gray-700 font-semibold">
             {{ username }}
           </p>
@@ -30,15 +31,19 @@
   <script setup>
   import { ref } from 'vue'
   import { useRouter } from 'vue-router'
-  
-  const username = ref(localStorage.getItem('username') || 'Usuário')
+
   const router = useRouter()
-  
+
+  const username = ref(localStorage.getItem('username') || 'Usuário')
+  const foto = ref(localStorage.getItem('foto') || 'https://cdn-icons-png.flaticon.com/512/149/149071.png')
+
   const logout = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('refresh_token')
+    localStorage.removeItem('access')
+    localStorage.removeItem('refreshToken')
     localStorage.removeItem('username')
+    localStorage.removeItem('foto')
     router.push('/login')
   }
+
   </script>
   
