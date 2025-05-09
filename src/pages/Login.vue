@@ -20,12 +20,12 @@
         />
 
         <div>
-          <button
+          <Button
             type="submit"
-            class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-500 transition font-semibold"
+            full          
           >
             Entrar
-          </button>
+          </Button>
 
           <p class="text-sm text-center text-gray-600 mt-4">
             Não tem uma conta?
@@ -45,6 +45,7 @@
 import { ref } from 'vue'
 import { apiPublic, apiPrivate } from '../services/api'
 import Input from '../components/UI/Input.vue'
+import Button from '../components/UI/Button.vue'
 
 const email = ref('')
 const password = ref('')

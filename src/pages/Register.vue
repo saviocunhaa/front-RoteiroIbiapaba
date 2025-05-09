@@ -4,53 +4,45 @@
         <h2 class="text-2xl font-bold text-center mb-6 text-blue-700">Criar Conta</h2>
   
         <form @submit.prevent="register" class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700">Nome</label>
-            <input
+            <Input
+              label="Nome"
               v-model="nome"
               type="text"
               required
               class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
             />
-          </div>
-  
-          <div>
-            <label class="block text-sm font-medium text-gray-700">E-mail</label>
-            <input
+          
+            <Input
+              label="E-mail"
               v-model="email"
               type="email"
               required
               class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
             />
-          </div>
-  
-          <div>
-            <label class="block text-sm font-medium text-gray-700">Senha</label>
-            <input
+
+            <Input
+              label="Senha"
               v-model="password"
               type="password"
               required
               class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
             />
-          </div>
   
-          <div>
-            <label class="block text-sm font-medium text-gray-700">Confirme a Senha</label>
-            <input
+            <Input
+              label="Confirme a Senha"
               v-model="password2"
               type="password"
               required
               class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
             />
-          </div>
   
           <div>
-            <button
+            <Button
               type="submit"
-              class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-500 transition font-semibold"
+              full
             >
               Registrar
-            </button>
+            </Button>
   
             <p class="text-sm text-center text-gray-600 mt-4">
               Já tem uma conta?
@@ -68,6 +60,8 @@
   import axios from 'axios'
   import { ref } from 'vue'
   import { useRouter } from 'vue-router'
+  import Input from '../components/UI/Input.vue'
+  import Button from '../components/UI/Button.vue'
   
   const nome = ref('')
   const email = ref('')
