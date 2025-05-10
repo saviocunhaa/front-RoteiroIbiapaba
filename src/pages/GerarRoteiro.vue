@@ -41,6 +41,16 @@
           <label for="criancas" class="text-gray-700">Com crianças?</label>
         </div>
 
+        <div class="flex items-center space-x-3">
+          <input
+            v-model="carroProprio"
+            type="checkbox"
+            id="carro"
+            class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+          />
+          <label for="carro" class="text-gray-700">Usará carro próprio?</label>
+        </div>
+
         <Select 
           v-model="hospedagem" 
           :options="cityList" l
@@ -162,6 +172,8 @@ const generateItinerary = async () => {
     error.value = ''
     roteiro.value = ''
 
+    const carroProprio = ref(false)
+
     const token = localStorage.getItem('access')
     if (token) {
       apiPrivate.defaults.headers.common['Authorization'] = `Bearer ${token}` // 👈 corrigido aqui (era api errado)
@@ -172,6 +184,7 @@ const generateItinerary = async () => {
       dias: dias.value,
       interesses: interesses.value.trim() !== '' ? interesses.value : undefined,
       com_criancas: comCriancas.value,
+      carro_proprio: carroProprio.value,
       hospedagem: hospedagem.value.trim() !== '' ? hospedagem.value : undefined
     })
 
