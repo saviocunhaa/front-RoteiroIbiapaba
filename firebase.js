@@ -9,7 +9,7 @@ const firebaseConfig = {
   projectId: "roteiroibiapaba-b8aea",
   storageBucket: "roteiroibiapaba-b8aea.appspot.com",
   messagingSenderId: "641564520217",
-  appId: "1:641564520217:web:XXXXXX", // você pode obter esse valor também na tela de configurações
+  appId: "1:1234567890:web:321abc456def7890", // você pode obter esse valor também na tela de configurações
 }
 
 // Inicializa o Firebase
