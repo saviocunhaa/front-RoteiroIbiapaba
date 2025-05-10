@@ -35,7 +35,10 @@
   const router = useRouter()
 
   const username = ref(localStorage.getItem('username') || 'Usuário')
-  const foto = ref(localStorage.getItem('foto') || 'https://cdn-icons-png.flaticon.com/512/149/149071.png')
+
+  // Usa a imagem salva — se não houver, mostra imagem padrão
+ const foto = ref(localStorage.getItem('foto') || 'https://cdn-icons-png.flaticon.com/512/149/149071.png')
+
 
   const logout = () => {
     localStorage.removeItem('access')
@@ -44,6 +47,6 @@
     localStorage.removeItem('foto')
     router.push('/login')
   }
-
   </script>
-  
+
+    

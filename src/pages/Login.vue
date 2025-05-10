@@ -44,11 +44,7 @@
   />
   Entrar com Google
 </button>
-
-          
         </div>
-
-
         <p v-if="error" class="text-red-500 text-sm text-center">{{ error }}</p>
       </form>
     </div>
@@ -85,7 +81,7 @@ const handleLogin = async () => {
 
     const profileResponse = await apiPrivate.get('/profile/')
     localStorage.setItem('username', profileResponse.data.nome)
-    localStorage.setItem('foto', profileResponse.data.foto)
+    localStorage.setItem('foto_url', profileResponse.data.foto)
 
     window.location.assign('/gerar-roteiro')
   } catch (err) {
@@ -107,7 +103,7 @@ const loginWithGoogle = async () => {
     localStorage.setItem('access', res.data.access)
     localStorage.setItem('refreshToken', res.data.refresh)
     localStorage.setItem('username', res.data.user.nome)
-    localStorage.setItem('foto', res.data.user.foto || '')
+localStorage.setItem('foto', res.data.user.foto || res.data.user.foto_url || '')
 
     window.location.href = '/gerar-roteiro'
   } catch (err) {

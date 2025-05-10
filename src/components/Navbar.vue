@@ -2,11 +2,18 @@
   <nav class="bg-white shadow p-4 sticky top-0 z-50">
     <div class="flex justify-between items-center">
       <!-- Logo -->
-      <img
-        src="../assets/RoteiroIbiapaba.png"
-        alt="Logo"
-        class="h-20 w-auto"
-      />
+
+      
+
+        <router-link to="/" class="flex justify-center mb-4">
+          <img
+            src="../assets/RoteiroIbiapaba.png"
+            alt="Logo"
+            class="h-20 w-auto cursor-pointer"
+          />
+        </router-link>
+
+
 
       <!-- Botão sanduíche no mobile -->
       <button
@@ -68,7 +75,6 @@
         <!-- Menu mobile -->
     <div v-if="menuOpen" class="md:hidden mt-4 flex flex-col space-y-2">
       <router-link to="/" class="text-gray-700 hover:text-blue-600 font-medium border-b pb-2" @click="menuOpen = false">Início</router-link>
-      <router-link to="/#spots" class="text-gray-700 hover:text-blue-600 font-medium border-b pb-2" @click="menuOpen = false">Destinos</router-link>
       <router-link to="/explorar" class="text-gray-700 hover:text-blue-600 font-medium border-b pb-2" @click="menuOpen = false">Explorar</router-link>
       
       <button
