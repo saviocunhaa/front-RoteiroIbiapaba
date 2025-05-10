@@ -48,9 +48,9 @@
           placeholder="Selecione uma cidade (opcional)" 
         />
 
-        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded font-semibold transition">
+        <Button type="submit" full>
           Gerar Roteiro
-        </button>
+        </Button>
 
         <p v-if="error" class="text-red-500 text-sm text-center mt-4">{{ error }}</p>
       </form>
@@ -125,6 +125,7 @@ import { onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 import Input from '../components/UI/Input.vue'
 import Select from '../components/UI/Select.vue'
+import Button from '../components/UI/Button.vue'
 
 const cidade = ref('')
 const dias = ref(1)

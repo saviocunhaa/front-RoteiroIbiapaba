@@ -44,11 +44,10 @@ const props = defineProps({
 const modelModel = defineModel()
 
 const prBr = {
-    noOptionsText: 'Nenhuma opção disponível',
-    noResultsText: 'Nenhum resultado encontrado',
-    selectLabel: 'Clique para selecionar',
-    deselectLabel: 'Clique para remover',
+  noOptionsText: 'Nenhuma opção disponível',
+  noResultsText: 'Nenhum resultado encontrado',
+  selectLabel: 'Clique para selecionar',
+  deselectLabel: 'Clique para remover',
 }
-
 
 </script>

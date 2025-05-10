@@ -27,9 +27,9 @@
 
 <script setup>
 
-import {ref, watch} from 'vue'
-import iconEye from '../../assets/icon_eye.svg'
-import iconClosedEye from '../../assets/icon_closed_eye.svg'
+    import {ref, watch} from 'vue'
+    import iconEye from '../../assets/icon_eye.svg'
+    import iconClosedEye from '../../assets/icon_closed_eye.svg'
 
     const props = defineProps({
         model: String,

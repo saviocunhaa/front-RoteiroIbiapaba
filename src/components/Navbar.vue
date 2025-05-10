@@ -34,12 +34,14 @@
       <div class="hidden md:flex space-x-6 items-center">
         <router-link to="/" class="text-gray-700 hover:text-blue-600 font-medium">Início</router-link>
         <router-link to="/explorar" class="text-gray-700 hover:text-blue-600 font-medium">Explorar</router-link>
-        <button
+        <Button
           @click="handleRoteiro"
-          class="bg-black text-white rounded-full px-6 py-2 text-sm font-semibold shadow hover:bg-gray-800 transition border-2 border-white"
+          color="dark"
+          rounded
+          class="text-sm shadow transition border-2 border-white"
         >
           Crie seu roteiro
-        </button>
+        </Button>
 
         <!-- Usuário logado -->
         <div v-if="username" class="relative">
@@ -77,12 +79,15 @@
       <router-link to="/" class="text-gray-700 hover:text-blue-600 font-medium border-b pb-2" @click="menuOpen = false">Início</router-link>
       <router-link to="/explorar" class="text-gray-700 hover:text-blue-600 font-medium border-b pb-2" @click="menuOpen = false">Explorar</router-link>
       
-      <button
+      <Button
         @click="() => { handleRoteiro(); menuOpen = false }"
-        class="bg-black text-white rounded-full px-6 py-2 text-sm font-semibold shadow hover:bg-gray-800 transition border-b pb-2"
+        color="dark"
+        full
+        rounded
+        class="text-sm"
       >
         Crie seu roteiro
-      </button>
+      </Button>
 
       <div v-if="username" class="flex items-center space-x-3 mt-4">
         <img
@@ -92,13 +97,16 @@
         />
         <span class="text-gray-700 font-medium">{{ username }}</span>
       </div>
-      <button
+      <Button
         v-if="username"
         @click="logout"
-        class="mt-2 bg-red-500 hover:bg-red-400 text-white py-2 rounded-full text-sm font-semibold transition"
+        color="danger"
+        rounded
+        full
+        class="text-sm"
       >
         Sair
-      </button>
+      </Button>
     </div>
   </nav>
 </template>
@@ -107,6 +115,7 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 import getValidProfilePhoto from '../utils/getValidProfilePhoto'
+import Button from './UI/Button.vue'
 
 const menuOpen = ref(false)
 const dropdownOpen = ref(false)
