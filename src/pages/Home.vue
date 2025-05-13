@@ -48,17 +48,18 @@
       <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Destinos Incríveis</h2>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <TouristSpotCard v-for="spot in spots" :key="spot.id" :spot="spot" />
+        <TouristSpotCard v-for="spot in visibleSpots" :key="spot.id" :spot="spot" />
       </div>
 
-      <div class="text-center mt-10" v-if="nextPage">
-        <button
-          @click="loadMore"
-          class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full text-lg font-medium transition"
+     <div class="text-center mt-10" v-if="visibleSpots.length < allSpots.length">
+        <router-link
+          to="/explorar"
+          class="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full text-lg font-medium transition"
         >
-          Carregar mais destinos
-        </button>
+          Ver todos os destinos
+        </router-link>
       </div>
+
     </section>
 
     <!-- CHAMADA PARA AÇÃO / APP -->
@@ -106,6 +107,10 @@ import bgImage from '../assets/background_serra.png'
 
 const spots = ref([])
 const nextPage = ref(null)
+const allSpots = ref([])       // lista completa embaralhada
+const visibleSpots = ref([])   // apenas os 6 visíveis
+const perPage = 6
+
 
 const fetchSpots = async (url = '/tourist-spots/') => {
   const response = await apiPublic.get(url)  // 👈 corrigido aqui
@@ -114,8 +119,9 @@ const fetchSpots = async (url = '/tourist-spots/') => {
   // Embaralha a lista recebida
   const shuffled = newSpots.sort(() => 0.5 - Math.random())
 
-  spots.value.push(...shuffled)
-  nextPage.value = response.data.next
+  allSpots.value = shuffled
+  visibleSpots.value = allSpots.value.slice(0, perPage)
+
 }
 
 onMounted(() => {
