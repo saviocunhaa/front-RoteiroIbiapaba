@@ -28,7 +28,7 @@
         Filtrar
       </button>
     </div>
-      <AdBanner />
+      
     <!-- Lista -->
     <div v-if="loading" class="text-center text-gray-500">Carregando pontos turísticos...</div>
 
@@ -44,6 +44,7 @@
         Carregar mais destinos
       </button>
     </div>
+    <AdBanner />
 
     <div v-if="!loading && spots.length === 0" class="text-center text-gray-500 mt-8">
       Nenhum ponto encontrado com os filtros selecionados.
