@@ -1,12 +1,6 @@
 <template>
   <div>
 
-    <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-1234567890123456"
-     data-ad-slot="1234567890"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
     <!-- HERO PRINCIPAL -->
     <section
       class="relative h-[85vh] bg-cover bg-center flex items-center justify-center text-white"
@@ -48,7 +42,7 @@
         </div>
       </div>
     </section>
-
+    <AdBanner />
     <!-- LISTAGEM DE PONTOS TURÍSTICOS -->
     <section id="spots" class="py-16 bg-white px-6 max-w-6xl mx-auto">
       <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Destinos Incríveis</h2>
@@ -67,7 +61,7 @@
       </div>
 
     </section>
-
+  <AdBanner />
     <!-- CHAMADA PARA AÇÃO / APP -->
     <section class="py-16 bg-blue-50 px-6 text-center">
       <h2 class="text-3xl font-bold text-blue-700 mb-4">Crie seu roteiro personalizado</h2>
@@ -110,6 +104,7 @@ import { ref, onMounted } from 'vue'
 import { apiPublic } from '../services/api'
 import TouristSpotCard from '../components/TouristSpotCard.vue'
 import bgImage from '../assets/background_serra.png'
+import AdBanner from '../components/AdBanner.vue'
 
 const spots = ref([])
 const nextPage = ref(null)
