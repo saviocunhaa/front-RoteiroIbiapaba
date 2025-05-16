@@ -23,6 +23,12 @@ const routes = [
     path: '/explorar',
     component: () => import('../pages/Explorar.vue'),
   },
+  {
+    path: '/turismo/:id',
+    name: 'TouristDetail',
+    component: () => import('../pages/TouristDetail.vue') // caminho correto para seu componente
+  },
+
   
   
 ]

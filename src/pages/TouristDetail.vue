@@ -51,28 +51,62 @@
           </SwiperSlide>
         </Swiper>
       </div>
+
+      <!-- Sugestões de outros roteiros -->
+      <div v-if="sugestoes.length" class="mt-16">
+        <h2 class="text-2xl font-semibold mb-6 text-gray-800">Você também pode gostar de:</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div
+            v-for="item in sugestoes"
+            :key="item.id"
+            class="bg-white rounded-xl shadow overflow-hidden hover:shadow-lg transition cursor-pointer"
+            @click="$router.push(`/turismo/${item.id}`)"
+          >
+            <img
+              :src="item.imagens?.[0]?.imagem || 'https://placehold.co/600x300?text=Sem+Imagem'"
+              class="w-full h-40 object-cover"
+              alt="Imagem do ponto turístico"
+            />
+            <div class="p-4">
+              <h3 class="text-lg font-bold text-blue-700 truncate">{{ item.nome }}</h3>
+              <p class="text-sm text-gray-600">{{ item.cidade }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
   
     </div>
   </template>
   
   <script setup>
-  import { ref, onMounted } from 'vue'
+  import { ref, watch } from 'vue'
   import { useRoute } from 'vue-router'
-  import { apiPublic } from '../services/api' // ⬅️ CORREÇÃO!
-  
+  import { apiPublic } from '../services/api'
+
   // Swiper imports
   import { Swiper, SwiperSlide } from 'swiper/vue'
   import 'swiper/css'
   import 'swiper/css/navigation'
   import 'swiper/css/pagination'
-  
+
   const route = useRoute()
   const spot = ref({})
-  
-  onMounted(async () => {
+  const sugestoes = ref([])
+
+  // 🔁 Função que busca os dados do ponto turístico e sugestões
+  const fetchSpotAndSugestoes = async () => {
     const res = await apiPublic.get(`/tourist-spots/${route.params.id}/`)
     spot.value = res.data
-  })
+
+    const all = await apiPublic.get('/tourist-spots/')
+    const outros = all.data.results.filter(s => s.id !== spot.value.id)
+    sugestoes.value = outros.sort(() => 0.5 - Math.random()).slice(0, 6)
+  }
+
+  // Reage a mudanças no ID da rota
+  watch(() => route.params.id, fetchSpotAndSugestoes, { immediate: true })
   </script>
   
   
