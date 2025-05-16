@@ -42,7 +42,7 @@
         </div>
       </div>
     </section>
-    <AdBanner />
+    <!-- <AdBanner /> -->
     <!-- LISTAGEM DE PONTOS TURÍSTICOS -->
     <section id="spots" class="py-16 bg-white px-6 max-w-6xl mx-auto">
       <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Destinos Incríveis</h2>
