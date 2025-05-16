@@ -1,11 +1,6 @@
 <template>
   <nav class="bg-white shadow p-4 sticky top-0 z-50">
-    <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-1234567890123456"
-     data-ad-slot="1234567890"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
+
 
     <div class="flex justify-between items-center">
       <!-- Logo -->
@@ -166,13 +161,6 @@ const updateProfileInfo = () => {
 
 onMounted(() => {
   window.addEventListener('storage', updateProfileInfo)
-  if (window.adsbygoogle) {
-    try {
-      (adsbygoogle = window.adsbygoogle || []).push({})
-    } catch (e) {
-      console.error('Erro ao carregar AdSense:', e)
-    }
-  }
 })
 
 onBeforeUnmount(() => {
