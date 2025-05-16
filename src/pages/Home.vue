@@ -1,6 +1,12 @@
 <template>
   <div>
 
+    <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1234567890123456"
+     data-ad-slot="1234567890"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
     <!-- HERO PRINCIPAL -->
     <section
       class="relative h-[85vh] bg-cover bg-center flex items-center justify-center text-white"
@@ -126,6 +132,13 @@ const fetchSpots = async (url = '/tourist-spots/') => {
 
 onMounted(() => {
   fetchSpots()
+  if (window.adsbygoogle) {
+    try {
+      (adsbygoogle = window.adsbygoogle || []).push({})
+    } catch (e) {
+      console.error('Erro ao carregar AdSense:', e)
+    }
+  }
 })
 
 const loadMore = () => {
