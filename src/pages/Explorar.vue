@@ -28,7 +28,7 @@
         Filtrar
       </button>
     </div>
-
+      <AdBanner />
     <!-- Lista -->
     <div v-if="loading" class="text-center text-gray-500">Carregando pontos turísticos...</div>
 
@@ -55,6 +55,7 @@
 import { ref } from 'vue'
 import { apiPublic } from '../services/api'
 import TouristSpotCard from '../components/TouristSpotCard.vue'
+import AdBanner from '../components/AdBanner.vue'
 
 const busca = ref('')
 const cidade = ref('')
