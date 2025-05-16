@@ -34,6 +34,8 @@
       <div class="hidden md:flex space-x-6 items-center">
         <router-link to="/" class="text-gray-700 hover:text-blue-600 font-medium">Início</router-link>
         <router-link to="/explorar" class="text-gray-700 hover:text-blue-600 font-medium">Explorar</router-link>
+        <router-link to="/contato">Contato</router-link>
+
         <Button
           @click="handleRoteiro"
           color="dark"
@@ -78,6 +80,8 @@
     <div v-if="menuOpen" class="md:hidden mt-4 flex flex-col space-y-2">
       <router-link to="/" class="text-gray-700 hover:text-blue-600 font-medium border-b pb-2" @click="menuOpen = false">Início</router-link>
       <router-link to="/explorar" class="text-gray-700 hover:text-blue-600 font-medium border-b pb-2" @click="menuOpen = false">Explorar</router-link>
+      <router-link to="/contato">Contato</router-link>
+
       
       <Button
         @click="() => { handleRoteiro(); menuOpen = false }"

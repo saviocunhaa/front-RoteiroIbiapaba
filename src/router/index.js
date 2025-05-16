@@ -28,6 +28,16 @@ const routes = [
     name: 'TouristDetail',
     component: () => import('../pages/TouristDetail.vue') // caminho correto para seu componente
   },
+  {
+  path: '/contato',
+  name: 'ContatoAnuncie',
+  component: () => import('../pages/ContatoAnuncie.vue')
+  },
+  {
+  path: '/obrigado',
+  name: 'Obrigado',
+  component: () => import('../pages/Obrigado.vue') // ou views/Obrigado.vue
+  },
 
   
   
