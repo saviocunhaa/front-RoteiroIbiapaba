@@ -1,62 +1,82 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../pages/Home.vue'
-import TouristDetail from '../pages/TouristDetail.vue'
-import Login from '../pages/Login.vue'
-import Perfil from '../pages/Perfil.vue'
-
+import { useAuthStore } from '../stores/auth'
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/ponto/:id', component: TouristDetail },
-  { path: '/login', component: Login },
-  { path: '/perfil', component: Perfil },
   {
-    path: '/gerar-roteiro',
-    component: () => import('../pages/GerarRoteiro.vue'),
-    meta: { requiresAuth: true } // 👈 Adicionamos esta linha
-  },
-  {
-    path: '/register',
-    component: () => import('../pages/Register.vue')
+    path: '/',
+    name: 'Home',
+    component: () => import('../pages/Home.vue'),
   },
   {
     path: '/explorar',
+    name: 'Explorar',
     component: () => import('../pages/Explorar.vue'),
   },
   {
-    path: '/turismo/:id',
+    path: '/pontos/:id',
     name: 'TouristDetail',
-    component: () => import('../pages/TouristDetail.vue') // caminho correto para seu componente
+    alias: ['/ponto/:id', '/turismo/:id'],
+    component: () => import('../pages/TouristDetail.vue'),
   },
   {
-  path: '/contato',
-  name: 'ContatoAnuncie',
-  component: () => import('../pages/ContatoAnuncie.vue')
+    path: '/gerar-roteiro',
+    name: 'GerarRoteiro',
+    component: () => import('../pages/GerarRoteiro.vue'),
+    meta: { requiresAuth: true },
   },
   {
-  path: '/obrigado',
-  name: 'Obrigado',
-  component: () => import('../pages/Obrigado.vue') // ou views/Obrigado.vue
+    path: '/perfil',
+    name: 'Perfil',
+    component: () => import('../pages/Perfil.vue'),
+    meta: { requiresAuth: true },
   },
-
-  
-  
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../pages/Login.vue'),
+    meta: { guestOnly: true },
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import('../pages/Register.vue'),
+    meta: { guestOnly: true },
+  },
+  {
+    path: '/contato',
+    name: 'ContatoAnuncie',
+    component: () => import('../pages/ContatoAnuncie.vue'),
+  },
+  {
+    path: '/obrigado',
+    name: 'Obrigado',
+    component: () => import('../pages/Obrigado.vue'),
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/',
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior() {
+    return { top: 0 }
+  },
 })
 
-// 👇 Aqui corrigido
+// Guarda de navegação com Pinia
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('access') // era 'token', agora é 'access'
-  if (to.meta.requiresAuth && !token) {
-    next('/login') // Se não tiver access, manda pro login
+  const authStore = useAuthStore()
+
+  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    next({ name: 'Login', query: { redirect: to.fullPath } })
+  } else if (to.meta.guestOnly && authStore.isAuthenticated) {
+    next({ name: 'GerarRoteiro' })
   } else {
-    next() // Se tiver, segue
+    next()
   }
 })
-
 
 export default router

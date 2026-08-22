@@ -1,7 +1,10 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-    <div class="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
-      <h2 class="text-2xl font-bold text-center mb-6 text-blue-700">Entrar</h2>
+  <div class="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md border border-gray-100">
+      <div class="text-center mb-6">
+        <h2 class="text-2xl font-bold text-blue-700">Acesse sua conta</h2>
+        <p class="text-sm text-gray-500 mt-1">Descubra e monte roteiros incríveis na Serra da Ibiapaba</p>
+      </div>
 
       <form @submit.prevent="handleLogin" class="space-y-4">
         <Input
@@ -10,6 +13,7 @@
           type="email"
           required
           autocomplete="username"
+          placeholder="seuemail@exemplo.com"
         />
         <Input
           label="Senha"
@@ -17,14 +21,17 @@
           type="password"
           required
           autocomplete="current-password"
+          placeholder="••••••••"
         />
 
-        <div>
+        <div class="pt-2">
           <Button
             type="submit"
-            full          
+            full
+            :disabled="authStore.loading"
           >
-            Entrar
+            <span v-if="authStore.loading">Entrando...</span>
+            <span v-else>Entrar</span>
           </Button>
 
           <p class="text-sm text-center text-gray-600 mt-4">
@@ -32,20 +39,33 @@
             <router-link to="/register" class="text-blue-600 hover:underline font-medium">Cadastre-se</router-link>
           </p>
 
+          <div class="relative my-4">
+            <div class="absolute inset-0 flex items-center">
+              <div class="w-full border-t border-gray-200"></div>
+            </div>
+            <div class="relative flex justify-center text-xs uppercase">
+              <span class="bg-white px-2 text-gray-500">ou</span>
+            </div>
+          </div>
+
           <button
-  type="button"
-  @click="loginWithGoogle"
-  class="w-full flex items-center justify-center gap-3 bg-blue-100 hover:bg-blue-200 text-blue-700 py-2 px-4 rounded-full font-semibold text-center mt-4 shadow transition"
->
-  <img
-    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-    alt="Google"
-    class="h-5 w-5"
-  />
-  Entrar com Google
-</button>
+            type="button"
+            @click="handleGoogleLogin"
+            :disabled="authStore.loading"
+            class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 py-2.5 px-4 rounded-xl font-medium shadow-sm transition"
+          >
+            <img
+              src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+              alt="Google"
+              class="h-5 w-5"
+            />
+            Entrar com Google
+          </button>
         </div>
-        <p v-if="error" class="text-red-500 text-sm text-center">{{ error }}</p>
+
+        <div v-if="error" class="p-3 bg-red-50 text-red-700 text-sm text-center rounded-lg border border-red-100">
+          {{ error }}
+        </div>
       </form>
     </div>
   </div>
@@ -53,11 +73,13 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '../stores/auth'
 import Input from '../components/UI/Input.vue'
-import { apiPublic, apiPrivate } from '../services/api'
-import { auth, provider, signInWithPopup } from '/firebase.js'
-
 import Button from '../components/UI/Button.vue'
+
+const router = useRouter()
+const authStore = useAuthStore()
 
 const email = ref('')
 const password = ref('')
@@ -66,51 +88,20 @@ const error = ref('')
 const handleLogin = async () => {
   try {
     error.value = ''
-
-    const response = await apiPublic.post('/auth/login/', {
-      email: email.value,
-      password: password.value,
-    })
-
-    const accessToken = response.data.access
-    const refreshToken = response.data.refresh
-
-    localStorage.setItem('access', accessToken)
-    localStorage.setItem('refreshToken', refreshToken)
-
-    apiPrivate.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
-
-    const profileResponse = await apiPrivate.get('/profile/')
-    localStorage.setItem('username', profileResponse.data.nome)
-    localStorage.setItem('foto_url', profileResponse.data.foto)
-
-    window.location.assign('/gerar-roteiro')
+    await authStore.login(email.value, password.value)
+    router.push('/gerar-roteiro')
   } catch (err) {
-    console.error('Erro no login:', err)
-    error.value = 'E-mail ou senha inválidos ou erro de conexão.'
+    error.value = authStore.error || 'E-mail ou senha inválidos.'
   }
 }
 
-const loginWithGoogle = async () => {
+const handleGoogleLogin = async () => {
   try {
-    const result = await signInWithPopup(auth, provider)
-    const user = result.user
-    const idToken = await user.getIdToken()
-
-    const res = await apiPublic.post('/users/auth/google/', {
-      idToken: idToken
-    })
-
-    localStorage.setItem('access', res.data.access)
-    localStorage.setItem('refreshToken', res.data.refresh)
-    localStorage.setItem('username', res.data.user.nome)
-localStorage.setItem('foto', res.data.user.foto || res.data.user.foto_url || '')
-
-    window.location.href = '/gerar-roteiro'
+    error.value = ''
+    await authStore.loginWithGoogle()
+    router.push('/gerar-roteiro')
   } catch (err) {
-    console.error('Erro ao fazer login com Google:', err)
-    error.value = 'Erro no login com Google.'
+    error.value = authStore.error || 'Falha ao autenticar com o Google.'
   }
 }
 </script>
-
