@@ -12,6 +12,7 @@ export const itineraryService = {
       com_criancas: Boolean(payload.comCriancas),
       carro_proprio: Boolean(payload.carroProprio),
       hospedagem: payload.hospedagem?.trim() || undefined,
+      acessibilidade: Boolean(payload.acessibilidade),
     })
 
     const rawText = response.data.roteiro
@@ -57,6 +58,30 @@ export const itineraryService = {
       }
       throw new Error('Não foi possível interpretar a estrutura do roteiro gerado.')
     }
+  },
+
+  /**
+   * Salva um roteiro gerado no perfil do usuário.
+   */
+  async saveItinerary(payload) {
+    const response = await apiPrivate.post('roteiros-salvos/', payload)
+    return response.data
+  },
+
+  /**
+   * Lista todos os roteiros salvos pelo usuário logado.
+   */
+  async getSavedItineraries() {
+    const response = await apiPrivate.get('roteiros-salvos/')
+    return response.data.results || response.data || []
+  },
+
+  /**
+   * Exclui um roteiro salvo.
+   */
+  async deleteSavedItinerary(id) {
+    const response = await apiPrivate.delete(`roteiros-salvos/${id}/`)
+    return response.data
   },
 }
 

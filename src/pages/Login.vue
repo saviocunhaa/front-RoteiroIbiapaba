@@ -73,23 +73,28 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import Input from '../components/UI/Input.vue'
 import Button from '../components/UI/Button.vue'
 
 const router = useRouter()
+const route = useRoute()
 const authStore = useAuthStore()
 
 const email = ref('')
 const password = ref('')
 const error = ref('')
 
+const redirectTarget = () => {
+  return route.query.redirect ? String(route.query.redirect) : '/gerar-roteiro'
+}
+
 const handleLogin = async () => {
   try {
     error.value = ''
     await authStore.login(email.value, password.value)
-    router.push('/gerar-roteiro')
+    router.push(redirectTarget())
   } catch (err) {
     error.value = authStore.error || 'E-mail ou senha inválidos.'
   }
@@ -99,7 +104,7 @@ const handleGoogleLogin = async () => {
   try {
     error.value = ''
     await authStore.loginWithGoogle()
-    router.push('/gerar-roteiro')
+    router.push(redirectTarget())
   } catch (err) {
     error.value = authStore.error || 'Falha ao autenticar com o Google.'
   }

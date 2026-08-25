@@ -20,6 +20,16 @@ export const favoritesService = {
   },
 
   /**
+   * Alterna o status de favorito (adiciona ou remove com 1 clique).
+   */
+  async toggleFavorite(spotId) {
+    const response = await apiPrivate.post('favorites/toggle/', {
+      ponto_turistico: spotId,
+    })
+    return response.data
+  },
+
+  /**
    * Remove um favorito pelo ID do favorito ou pelo UUID do ponto turístico.
    */
   async removeFavorite(favoriteId) {

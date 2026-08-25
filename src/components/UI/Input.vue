@@ -46,8 +46,8 @@
 
     const inputType= ref(props.type)
 
-    watch([props.type], () => {
-        inputType.value = props.type
+    watch(() => props.type, (newType) => {
+        inputType.value = newType
     })
 
     const viewPassword = (event) => {
